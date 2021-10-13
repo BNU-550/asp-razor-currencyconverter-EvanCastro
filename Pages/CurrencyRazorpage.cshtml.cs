@@ -7,10 +7,37 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace RazorCurrencyConverter.Pages
 {
-    public class Index1Model : PageModel
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.AspNetCore.Mvc;
+
+    namespace RazorCurrencyConverter.Pages
     {
-        public void OnGet()
+        public class CurrencyConverterModel : PageModel
         {
+
+            public const double GBP_TO_USDT = 1.36;
+
+            [BindProperty]
+            public double InputGBP { get; set; }
+            [BindProperty]
+            public double OutputUSDT { get; set; }
+
+            public void OnGet()
+            {
+
+            }
+
+            public void OnPost()
+            {
+                if (double.IsNegative(InputGBP))
+                {
+                    ViewData["Message"] = "Invalid! Please enter a positive number";
+                }
+                else
+                {
+                    OutputUSDT = InputGBP * GBP_TO_USDT;
+                }
+            }
         }
     }
 }

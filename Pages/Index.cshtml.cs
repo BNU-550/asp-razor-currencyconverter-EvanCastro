@@ -10,6 +10,9 @@ namespace RazorCurrencyConverter.Pages
 {
     public class IndexModel : PageModel
     {
+        [BindProperty]
+        public string FullName { get; private set; }
+
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger)
@@ -17,9 +20,23 @@ namespace RazorCurrencyConverter.Pages
             _logger = logger;
         }
 
+        
+
         public void OnGet()
         {
-
+            FullName = "Evan Castro";
+        }
+        public void OnPost()
+        {
+            if (String.IsNullOrWhiteSpace(FullName))
+            {
+                ViewData["Message"] = "Name is missing!";
+                FullName = "Anonymous";
+            }
+            else
+            {
+                ViewData["Message"] = "Name is Registered!";
+            }
         }
     }
-}
+    }
